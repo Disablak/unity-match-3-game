@@ -81,8 +81,26 @@
       // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
       // expected to change.
 
-      canvas.style.width = "1080px";
-      canvas.style.height = "1080px";
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) 
+      {
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=600, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+
+        document.querySelector("#unity-container").className = "unity-mobile";
+        canvas.className = "unity-mobile";
+
+        // Shrink canvas width
+        canvas.style.width = "80vw"; 
+        canvas.style.maxWidth = "600px"; 
+        canvas.style.height = "auto"; 
+      } else 
+      {
+        canvas.style.width = "1080px";
+        canvas.style.height = "1080px";
+      }
+
 
       document.querySelector("#unity-loading-bar").style.display = "block";
 
